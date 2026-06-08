@@ -27,6 +27,8 @@ app.get('/health', (req, res) => {
 app.post('/api/register', authController.register);
 app.post('/api/login', authController.login);
 
+const logger = require('./utils/logger');
+
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    logger.info(`Server running on http://localhost:${PORT}`);
 });

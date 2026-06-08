@@ -1,4 +1,5 @@
 const db = require('../config/db');
+const logger = require('../utils/logger');
 const { hashMasterPassword, verifyMasterPassword } = require('../utils/crypto');
 
 const register = async (req, res) => {
@@ -17,10 +18,13 @@ const register = async (req, res) => {
             function (err) {
                 if (err) {
                     if (err.message.includes('UNIQUE constraint failed')) {
+                        logger.warn('Registrierung fehlgeschlagen: Benutzername existiert bereits', { username });
                         return res.status(400).json({ error: 'Benutzername existiert bereits' });
                     }
+                    logger.error('Datenbankfehler bei Registrierung', err);
                     return res.status(500).json({ error: 'Datenbankfehler' });
                 }
+                logger.info('Neuer Benutzer registriert', { username });
                 res.status(201).json({ message: 'Benutzer erfolgreich registriert' });
             }
         );
