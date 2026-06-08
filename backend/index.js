@@ -19,6 +19,8 @@ app.use((req, res, next) => {
 
 const authController = require('./controllers/authController');
 const { validateAuth } = require('./middleware/validation');
+const { authenticateToken } = require('./middleware/auth');
+const errorHandler = require('./middleware/errorHandler');
 
 // Routes
 app.get('/health', (req, res) => {
@@ -27,6 +29,14 @@ app.get('/health', (req, res) => {
 
 app.post('/api/register', validateAuth, authController.register);
 app.post('/api/login', validateAuth, authController.login);
+
+// Protected Test Route
+app.get('/api/protected', authenticateToken, (req, res) => {
+    res.json({ message: 'Zugriff auf geschützte Daten erfolgreich!', user: req.user });
+});
+
+// Global Error Handler (must be registered after routes)
+app.use(errorHandler);
 
 const logger = require('./utils/logger');
 

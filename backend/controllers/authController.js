@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const db = require('../config/db');
 const logger = require('../utils/logger');
 const { hashMasterPassword, verifyMasterPassword } = require('../utils/crypto');
@@ -46,9 +47,17 @@ const login = async (req, res) => {
             const match = await verifyMasterPassword(password, user.master_hash);
             if (!match) return res.status(401).json({ error: 'Ungültige Anmeldedaten' });
 
-            // Hier würde normalerweise ein JWT generiert werden
+            // JWT generieren
+            const secret = process.env.SESSION_SECRET || 'fallback_secret';
+            const token = jwt.sign(
+                { id: user.id, username: user.username },
+                secret,
+                { expiresIn: '1h' }
+            );
+
             res.json({
                 message: 'Login erfolgreich',
+                token,
                 user: { id: user.id, username: user.username }
             });
         }

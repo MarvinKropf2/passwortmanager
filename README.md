@@ -68,10 +68,10 @@ KANBAN.md         # Aufgabenverwaltung
 ## Journal & Reflexion
 
 ### Block 01
-- **Geplant:** Projekt-Setup, README & Kanban Erstellung, Ordnerstruktur.
-- **Umgesetzt:** Alle Dokumente erstellt, Struktur definiert.
-- **Probleme:** Keine.
-- **Nächstes Ziel:** Backend-Grundgerüst aufbauen.
+- **Geplant:** Projekt-Setup, Ordnerstruktur, README & Kanban Erstellung, sicheres Logging, Input-Validierungs-Middleware und globaler Error-Handler.
+- **Umgesetzt:** Projektstruktur definiert und Dokumentation erstellt. Sichere Logging-Komponente, Input-Validierung für Auth-Endpunkte und einen globalen Error-Handler zur Unterdrückung von Stack-Traces (OWASP A05) hinzugefügt.
+- **Probleme:** Keine schwerwiegenden. Port-Wechsel von 5000 auf 5001 wegen Port-Konflikt mit macOS AirPlay Receiver.
+- **Nächstes Ziel:** Starten von Block 02 mit der Anbindung des React-Frontends an die API und Session-Management (JWT).
 
 <!-- Hier folgen weitere Blöcke während der Umsetzung -->
 
