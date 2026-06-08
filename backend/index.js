@@ -18,14 +18,15 @@ app.use((req, res, next) => {
 });
 
 const authController = require('./controllers/authController');
+const { validateAuth } = require('./middleware/validation');
 
 // Routes
 app.get('/health', (req, res) => {
     res.json({ status: 'ok', message: 'SecurePass API is running' });
 });
 
-app.post('/api/register', authController.register);
-app.post('/api/login', authController.login);
+app.post('/api/register', validateAuth, authController.register);
+app.post('/api/login', validateAuth, authController.login);
 
 const logger = require('./utils/logger');
 
